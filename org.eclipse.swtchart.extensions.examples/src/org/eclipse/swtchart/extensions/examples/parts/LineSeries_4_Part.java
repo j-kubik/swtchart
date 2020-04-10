@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017, 2019 Lablicate GmbH.
+ * Copyright (c) 2017, 2020 Lablicate GmbH.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -35,6 +35,7 @@ public class LineSeries_4_Part extends ChromatogramChart {
 
 	@Inject
 	public LineSeries_4_Part(Composite parent) {
+
 		super(parent, SWT.NONE);
 		setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		try {
@@ -51,6 +52,7 @@ public class LineSeries_4_Part extends ChromatogramChart {
 		 */
 		IChartSettings chartSettings = getChartSettings();
 		chartSettings.setCreateMenu(true);
+		chartSettings.setBufferSelection(true);
 		applySettings(chartSettings);
 		/*
 		 * Create series.
@@ -63,15 +65,17 @@ public class LineSeries_4_Part extends ChromatogramChart {
 		colors.put(5, getDisplay().getSystemColor(SWT.COLOR_GRAY));
 		//
 		List<ILineSeriesData> lineSeriesDataList = new ArrayList<ILineSeriesData>();
-		for(int i = 1; i <= 5; i++) {
-			ISeriesData seriesData = SeriesConverter.getSeriesXY(SeriesConverter.LINE_SERIES + "4_" + i);
-			ILineSeriesData lineSeriesData = new LineSeriesData(seriesData);
-			ILineSeriesSettings lineSeriesSettings = lineSeriesData.getSettings();
-			lineSeriesSettings.setLineColor(colors.get(i));
-			lineSeriesSettings.setEnableArea(false);
-			ILineSeriesSettings lineSeriesSettingsHighlight = (ILineSeriesSettings)lineSeriesSettings.getSeriesSettingsHighlight();
-			lineSeriesSettingsHighlight.setLineWidth(2);
-			lineSeriesDataList.add(lineSeriesData);
+		for(int j = 1; j <= 20; j++) {
+			for(int i = 1; i <= 5; i++) {
+				ISeriesData seriesData = SeriesConverter.getSeriesXY(SeriesConverter.LINE_SERIES + "4_" + i, Integer.toString(j + i));
+				ILineSeriesData lineSeriesData = new LineSeriesData(seriesData);
+				ILineSeriesSettings lineSeriesSettings = lineSeriesData.getSettings();
+				lineSeriesSettings.setLineColor(colors.get(i));
+				lineSeriesSettings.setEnableArea(false);
+				ILineSeriesSettings lineSeriesSettingsHighlight = (ILineSeriesSettings)lineSeriesSettings.getSeriesSettingsHighlight();
+				lineSeriesSettingsHighlight.setLineWidth(2);
+				lineSeriesDataList.add(lineSeriesData);
+			}
 		}
 		//
 		addSeriesData(lineSeriesDataList, LineChart.MEDIUM_COMPRESSION);

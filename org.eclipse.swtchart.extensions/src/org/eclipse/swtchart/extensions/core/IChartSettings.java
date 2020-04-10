@@ -22,6 +22,10 @@ import org.eclipse.swtchart.extensions.menu.IChartMenuEntry;
 
 public interface IChartSettings {
 
+	boolean isBufferSelection();
+
+	void setBufferSelection(boolean bufferSelection);
+
 	void setEnableTooltips(boolean enable);
 
 	boolean isEnableTooltips();
